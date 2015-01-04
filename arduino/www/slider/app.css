@@ -1,0 +1,12 @@
+button {
+	border: 0;
+	display: block;
+	padding: 1.5em;
+}
+
+button {
+	background: gray;
+}
+button.active {
+	background: green;
+}
