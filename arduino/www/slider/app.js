@@ -6,7 +6,7 @@ Zepto(function ($) {
 			type: 'GET',
 			username: 'root',
 			password: 'arduino',
-			url: 'http://arduino.local/arduino/'+endpoint
+			url: '/arduino/'+endpoint
 		});
 
 	}
