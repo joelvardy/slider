@@ -108,13 +108,13 @@ void loop() {
 	// Run
 	if (RUN && RUNNING) {
 
-		RUN_COUNT++;
-
-		if (RUN_COUNT >= TOTAL_RUNS) {
+		if ((RUN_COUNT + 1) >= TOTAL_RUNS) {
 			RUN = false;
 			RUNNING = false;
 			sliderMotor->release();
 		} else {
+
+			RUN_COUNT++;
 
 			// Trigger shutter
 			delay(SHUTTER_SHUDDER_DELAY);

@@ -10,6 +10,10 @@ input, button {
 button {
 	cursor: pointer;
 }
+button[disabled] {
+	color: rgb(180, 180, 180);
+	cursor: not-allowed;
+}
 
 html, input, button {
 	color: #222;
@@ -95,6 +99,12 @@ ul.dashboard {
 		float: none;
 		width: auto;
 	}
+		ul.dashboard li.item.start-stop button[data-run=true] {
+			background: rgb(192, 57, 43);
+		}
+		ul.dashboard li.item.start-stop button[data-run=false] {
+			background: rgb(39, 174, 96);
+		}
 
 div.loading {
 	background: rgba(255, 255, 255, 0.9) url('./loading.gif') no-repeat center center;
