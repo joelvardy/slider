@@ -29,6 +29,14 @@ void setup() {
 
 	Serial.begin(9600);
 
+	// Setup shutter pin
+	pinMode(SHUTTER_PIN, OUTPUT);
+
+	// Setup stepper motor
+	AFMS.begin();
+	sliderMotor->setSpeed(500);
+	sliderMotor->release();
+
 	// Bridge startup
 	pinMode(13, OUTPUT);
 	digitalWrite(13, LOW);
@@ -50,11 +58,6 @@ void loop() {
 		// read the command
 		String command = client.readStringUntil('/');
 
-		// Status
-		if (command == "status") {
-			//
-		}
-
 		// Run
 		if (command == "run") {
 			RUN = (bool) client.parseInt();
@@ -62,7 +65,9 @@ void loop() {
 
 		// Reset
 		if (command == "reset") {
-			// TODO
+			sliderMotor->step((RUN_COUNT * STEPS_PER_RUN), BACKWARD, DOUBLE);
+			sliderMotor->release();
+			RUN_COUNT = 0;
 		}
 
 		// Distance
@@ -81,15 +86,51 @@ void loop() {
 		}
 
 		// Send status
+		TOTAL_RUNS = (int) floor((DISTANCE * STEPS_PER_MM) / STEPS_PER_RUN);
 		status(client);
 
 		client.stop();
 
 	}
 
-	TOTAL_RUNS = (int) floor((DISTANCE * STEPS_PER_MM) / STEPS_PER_RUN);
+	// Start running
+	if (RUN && ! RUNNING) {
+		RUNNING = true;
+	}
 
-	delay(50);
+	// Stop running
+	if ( ! RUN && RUNNING) {
+		RUN = false;
+		RUNNING = false;
+		sliderMotor->release();
+	}
+
+	// Run
+	if (RUN && RUNNING) {
+
+		RUN_COUNT++;
+
+		if (RUN_COUNT >= TOTAL_RUNS) {
+			RUN = false;
+			RUNNING = false;
+			sliderMotor->release();
+		} else {
+
+			// Trigger shutter
+			delay(SHUTTER_SHUDDER_DELAY);
+			digitalWrite(SHUTTER_PIN, HIGH);
+			delay(SHUTTER_DELAY);
+			digitalWrite(SHUTTER_PIN, LOW);
+			delay(DELAY);
+
+			// Move slider
+			sliderMotor->step(STEPS_PER_RUN, FORWARD, DOUBLE);
+
+		}
+
+	}
+
+	delay(10);
 
 }
 

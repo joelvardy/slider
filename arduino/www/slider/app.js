@@ -35,6 +35,11 @@ Zepto(function ($) {
 				return parseInt(data.match("Runs completed: ([0-9]+)")[1]);
 				break;
 
+			case 'completed':
+				if (value(data, 'runs-completed') === 0) return 0;
+				return ((value(data, 'runs-completed') / value(data, 'total-runs')) * 100).toFixed(2);
+				break;
+
 			case 'slide-duration':
 				return parseInt(data.match("Slide duration: ([0-9]+)")[1]);
 				break;
@@ -77,11 +82,7 @@ Zepto(function ($) {
 					$('li.steps input').val(value(data, 'steps'));
 				}
 
-				var completed = value(data, 'runs-completed');
-				if (completed !== 0) {
-					completed = (value(data, 'total-runs') / value(data, 'runs-completed'));
-				}
-				$('li.details.completed span.value').html(completed+'%');
+				$('li.details.completed span.value').html(value(data, 'completed')+'%');
 				$('li.details.duration span.value').html((value(data, 'slide-duration') / 60).toFixed(1)+' minutes');
 
 				var time = new Date();
@@ -99,10 +100,10 @@ Zepto(function ($) {
 
 		$('div.loading').hide();
 
-		// Update status every 5 seconds
-		// setInterval(function () {
-		// 	sendRequest('status');
-		// }, 5000);
+		// Update status every X seconds
+		setInterval(function () {
+			sendRequest('status');
+		}, 15000);
 
 	});
 
@@ -122,7 +123,7 @@ Zepto(function ($) {
 	$('ul.dashboard li.reset button').click(function (event) {
 
 		$('div.loading').show();
-		sendRequest('reset', function (data) {
+		sendRequest('reset/1', function (data) {
 			$('div.loading').hide();
 		});
 
