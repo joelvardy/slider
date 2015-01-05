@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Slider</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="./app.css" />
 		<script src="./zepto.min.js"></script>
 		<script src="./app.js"></script>
@@ -10,7 +11,53 @@
 
 		<h1>Slider</h1>
 
-		<button class="l13 active">Active</button>
+		<ul class="dashboard">
+
+			<li class="item distance">
+				<label>Distance (mm)</label>
+				<input type="number" />
+			</li>
+
+			<li class="item delay">
+				<label>Shutter delay (ms)</label>
+				<input type="number" />
+			</li>
+
+			<li class="item steps">
+				<label>Steps / run</label>
+				<input type="number" />
+			</li>
+
+			<li class="item save">
+				<button>Save settings</button>
+			</li>
+
+			<li class="item details completed">
+				<label>Completed</label>
+				<span class="value"></span>
+			</li>
+
+			<li class="item details duration">
+				<label>Duration</label>
+				<span class="value"></span>
+			</li>
+
+			<li class="item details updated">
+				<label>Updated</label>
+				<span class="value"></span>
+			</li>
+
+			<li class="item reset">
+				<button>Reset position</button>
+			</li>
+
+			<li class="item start-stop">
+				<button>Start / Stop</button>
+			</li>
+
+		</ul>
+
+		<div class="loading"></div>
 
 	</body>
 </html>

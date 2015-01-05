@@ -1,12 +1,106 @@
-button {
-	border: 0;
-	display: block;
-	padding: 1.5em;
+*, *:before, *:after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
-button {
-	background: gray;
+input, button {
+	outline: none;
 }
-button.active {
-	background: green;
+button {
+	cursor: pointer;
+}
+
+html, input, button {
+	color: #222;
+	font: 110%/1.6em Helvetica, Arial, sans-serif;
+}
+
+html {
+	position: relative;
+}
+
+h1 {
+	padding: 0.5em;
+	text-align: center;
+}
+
+ul.dashboard {
+	list-style: none;
+	overflow: hidden;
+}
+	ul.dashboard li.item {
+		background: rgb(240, 240, 240);
+		float: left;
+		height: 125px;
+		width: 50%;
+	}
+		ul.dashboard li.item label, ul.dashboard li.item input, ul.dashboard li.item span.value, ul.dashboard li.item button {
+			display: block;
+			background: transparent;
+			border: 0;
+			text-align: center;
+			width: 100%;
+		}
+		ul.dashboard li.item label {
+			font-weight: bold;
+			height: 40px;
+			padding: 5px;
+		}
+		ul.dashboard li.item input {
+			height: 85px;
+		}
+		ul.dashboard li.item span.value {
+			height: 85px;
+			line-height: 85px;
+		}
+		ul.dashboard li.item button {
+			font-weight: bold;
+			height: 100%;
+		}
+	ul.dashboard li.item.distance {
+		border-top: 1px rgb(175, 175, 175) solid;
+		border-right: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.delay {
+		border-top: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.steps {
+		border-top: 1px rgb(175, 175, 175) solid;
+		border-right: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.save {
+		background: rgb(220, 220, 220);
+		border-top: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.details.completed {
+		border-top: 1px rgb(175, 175, 175) solid;
+		border-right: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.details.duration {
+		border-top: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.details.updated {
+		border-top: 1px rgb(175, 175, 175) solid;
+		border-right: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.reset {
+		background: rgb(220, 220, 220);
+		border-top: 1px rgb(175, 175, 175) solid;
+	}
+	ul.dashboard li.item.start-stop {
+		background: rgb(220, 220, 220);
+		border-top: 1px rgb(175, 175, 175) solid;
+		clear: both;
+		float: none;
+		width: auto;
+	}
+
+div.loading {
+	background: rgba(255, 255, 255, 0.9) url('./loading.gif') no-repeat center center;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
 }

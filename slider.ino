@@ -1,8 +1,14 @@
 #include <Bridge.h>
 #include <YunServer.h>
 #include <YunClient.h>
+#include <Wire.h>
+#include <Adafruit_MotorShield.h>
+#include "utility/Adafruit_PWMServoDriver.h"
 
 YunServer server;
+
+Adafruit_MotorShield AFMS = Adafruit_MotorShield();
+Adafruit_StepperMotor *sliderMotor = AFMS.getStepper(200, 2);
 
 #define SHUTTER_PIN 7
 #define SHUTTER_SHUDDER_DELAY 150
@@ -15,6 +21,9 @@ boolean RUNNING = false;
 int DISTANCE = 630;
 int DELAY = 800;
 int STEPS_PER_RUN = 1;
+
+int TOTAL_RUNS = 0;
+int RUN_COUNT = 0;
 
 void setup() {
 
@@ -51,6 +60,11 @@ void loop() {
 			RUN = (bool) client.parseInt();
 		}
 
+		// Reset
+		if (command == "reset") {
+			// TODO
+		}
+
 		// Distance
 		if (command == "distance") {
 			DISTANCE = client.parseInt();
@@ -72,6 +86,8 @@ void loop() {
 		client.stop();
 
 	}
+
+	TOTAL_RUNS = (int) floor((DISTANCE * STEPS_PER_MM) / STEPS_PER_RUN);
 
 	delay(50);
 
@@ -109,6 +125,18 @@ void status(YunClient client) {
 
 	client.print("Steps per run: ");
 	client.print(STEPS_PER_RUN);
+	client.print("\n");
+
+	client.print("Total runs: ");
+	client.print(TOTAL_RUNS);
+	client.print("\n");
+
+	client.print("Runs completed: ");
+	client.print(RUN_COUNT);
+	client.print("\n");
+
+	client.print("Slide duration: ");
+	client.print((int) (TOTAL_RUNS * (float) ((float) (DELAY + SHUTTER_SHUDDER_DELAY + SHUTTER_DELAY) / 1000)));
 	client.print("\n");
 
 }
