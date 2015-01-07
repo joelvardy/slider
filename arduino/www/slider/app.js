@@ -102,7 +102,7 @@ Zepto(function ($) {
 
 		// Update status every X seconds
 		setInterval(function () {
-			sendRequest('status');
+			// sendRequest('status');
 		}, 15000);
 
 	});

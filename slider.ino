@@ -11,7 +11,7 @@ Adafruit_MotorShield AFMS = Adafruit_MotorShield();
 Adafruit_StepperMotor *sliderMotor = AFMS.getStepper(200, 2);
 
 #define SHUTTER_PIN 7
-#define SHUTTER_SHUDDER_DELAY 150
+#define SHUTTER_SHUDDER_DELAY 250
 #define SHUTTER_DELAY 50
 #define STEPS_PER_MM 6.25
 
